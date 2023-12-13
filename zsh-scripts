@@ -1,0 +1,92 @@
+# custom zsh functions to generate PDF, HTML and Docx
+# add "source ~/.pandoc/zsh-scripts" to your .zshrc
+
+# makePDF
+function mdToPDF()
+{
+    # Create the 'pdfs' folder if it does not exist
+    mkdir -p pdfs
+
+    for file in "$@"
+    do
+        # Check if the file has a '.md' extension
+        if [[ $file == *.md ]]; then
+            base=$(basename "$file" .md)
+
+            # Process the file
+            {
+                echo "# $base"
+                sed -e '/./{G;}' -e '/^$/d' "$file" | sed '/^#\{1,\}[[:space:]]*Meta/,$d'
+            } > "temp_$base.md"
+
+            # Run Pandoc to convert the processed file to PDF
+            pandoc --pdf-engine=xelatex -o "pdfs/$base.pdf" "temp_$base.md" \
+              ~/.pandoc/preamble.yaml
+
+            # Clean up temporary file
+            rm "temp_$base.md"
+        fi
+    done
+}
+
+function mdToHTML()
+{
+    # Create the 'html' folder if it does not exist
+    mkdir -p html
+
+    for file in "$@"
+    do
+        # Check if the file has a '.md' extension
+        if [[ $file == *.md ]]; then
+            base=$(basename "$file" .md)
+
+            # Convert Markdown to HTML fragment (without header/footer)
+            {
+              echo "# $base"
+              sed -e '/./{G;}' -e '/^$/d' "$file" | sed '/^#\{1,\}[[:space:]]*Meta/,$d'
+            } > "temp_$base.md"
+
+            pandoc "temp_$base.md" -t html -o "temp_$base.html"
+
+            # Prepare the final HTML file path
+            final_html="html/$base.html"
+
+            # Insert the HTML fragment into the template
+            {
+              sed '/<\/title>/q' ~/.pandoc/template.html
+              echo "<title>$base</title>"
+              sed -n '/<body>/,$p' ~/.pandoc/template.html | sed "/<body>/r temp_$base.html"
+            } > "$final_html"
+            # Clean up temporary file 
+            rm "temp_$base.md"
+            rm "temp_$base.html"
+        fi
+    done
+}
+
+function mdToWord()
+{
+    # Create the 'word' folder if it does not exist
+    mkdir -p word
+
+    for file in "$@"
+    do
+        # Check if the file has a '.md' extension
+        if [[ $file == *.md ]]; then
+            base=$(basename "$file" .md)
+
+            # Process the Markdown file
+            {
+                echo "# $base"
+                sed -e '/./{G;}' -e '/^$/d' "$file" | sed '/^#\{1,\}[[:space:]]*Meta/,$d'
+            } > "temp_$base.md"
+
+            # Convert to Word format using Pandoc
+            pandoc "temp_$base.md" --reference-doc="$(echo ~/.pandoc/word-settings.docx)" -o "word/$base.docx"
+
+            # Clean up temporary file
+            rm "temp_$base.md"
+        fi
+    done
+}
+
