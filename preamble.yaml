@@ -9,7 +9,7 @@ wrap: preserve
 header-includes:
   - \usepackage[utf8]{inputenc}
   - \usepackage{indentfirst}
-  - \usepackage[a4paper, margin=2cm]{geometry}
+  - \usepackage[a4paper, margin=2.5cm]{geometry}
 output: 
   pdf_document:
     latex_engine: xelatex
