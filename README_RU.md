@@ -27,12 +27,15 @@ brew install basictex
 - `collection-fontsrecommended`: Предоставляет набор рекомендуемых шрифтов для улучшенной типографики.
 - `collection-langcyrillic`: Добавляет поддержку кириллицы, необходимую для документов на русском и других языках.
 - `latex-tools`: Набор основных инструментов и пакетов для обработки LaTeX.
+- `tcolorbox`: Обеспечивает среду для цветных и обрамлённых текстовых блоков с заголовочной строкой. Требует `environ` в качестве зависимости.
 
 ```zsh
 tlmgr update --self
 tlmgr install collection-fontsrecommended
 tlmgr install collection-langcyrillic
 tlmgr install latex-tools
+tlmgr install environ
+tlmgr install tcolorbox
 ```
 
 Примечание: Выполняйте эти команды с префиксом `sudo`, если возникают проблемы с правами доступа.

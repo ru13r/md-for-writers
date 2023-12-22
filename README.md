@@ -26,12 +26,15 @@ Use `tlmgr`, the TeX Live package manager, to install additional packages. These
 - `collection-fontsrecommended`: Provides a collection of recommended fonts for enhanced typography.
 - `collection-langcyrillic`: Adds support for Cyrillic scripts, essential for documents in Russian and other languages.
 - `latex-tools`: A collection of essential tools and packages for LaTeX processing.
+- `tcolorbox`: Provides an environment for colored and framed text boxes with a heading line. Needs `environ` as a dependency. 
 
 ```zsh
 tlmgr update --self
 tlmgr install collection-fontsrecommended
 tlmgr install collection-langcyrillic
 tlmgr install latex-tools
+tlmgr install environ
+tlmgr install tcolorbox
 ```
 
 Note: Run these commands with `sudo` if you encounter permission issues.

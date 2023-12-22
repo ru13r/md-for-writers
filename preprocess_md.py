@@ -10,7 +10,7 @@ def preprocess_md(input_file, base_name):
     content = re.sub(r'^---[\s\S]*?---\s*', '', content)
 
     # Remove [!Meta] blocks and their contents
-    content = re.sub(r'^>\[!Meta\][\s\S]*?\n\n', '', content)
+    content = re.sub(r'^>\[!Meta\][\s\S]*?\n\n', '', content, flags=re.MULTILINE)
 
     content = re.sub(r'^\w+::\s*', '', content, flags=re.MULTILINE)
     
@@ -18,10 +18,11 @@ def preprocess_md(input_file, base_name):
     content = content.replace('\n', '\n\n')
 
     # remove wikipedia style links
+    content = re.sub(r'!\[\[([^\]]+)\]\]', '', content)
     content = re.sub(r'\[\[([^\]]+)\]\]', r'\1', content)
 
     # Process other custom blocks
-    content = re.sub(r'>\[!([a-zA-Z]+)\]\n([\s\S]*?)\n\n', lambda m: f"\n::: {m.group(1).lower()}\n{m.group(2)}\n:::\n\n", content)
+    content = re.sub(r'>\[!([a-zA-Z]+)\]\n([\s\S]*?)\n\n', lambda m: f"\n::: meta\n{m.group(2)}\n:::\n\n", content)
 
 
     # Additional processing

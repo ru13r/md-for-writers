@@ -6,12 +6,17 @@ lang: ru
 mainfont: PT Serif
 indent: true
 wrap: preserve
+colorlinks: true
 header-includes:
   - \usepackage[utf8]{inputenc}
   - \usepackage{indentfirst}
   - \usepackage[a4paper, margin=2.5cm]{geometry}
-output: 
-  pdf_document:
-    latex_engine: xelatex
+  - \usepackage{tcolorbox}
+  - |
+    \newtcolorbox{metabox}{
+    colback=gray!5,
+    colframe=gray!15,
+    }
+  - \newenvironment{meta}{\begin{metabox}}{\end{metabox}}
 ---
 
