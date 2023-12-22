@@ -4,6 +4,7 @@
 function _preprocessMD() {
         # remove the YAML header 
     sed '/^---$/,/^---$/d' "$1" |
+    sed '/^>\[!Meta\]/,/^$/d' |
     # Process the file
     {
         echo "# $2"
