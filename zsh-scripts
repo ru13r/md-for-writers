@@ -1,6 +1,17 @@
 # custom zsh functions to generate PDF, HTML and Docx
 # add "source ~/.pandoc/zsh-scripts" to your .zshrc
 
+function _preprocessMD() {
+        # remove the YAML header 
+    sed '/^---$/,/^---$/d' "$1" |
+    # Process the file
+    {
+        echo "# $2"
+        sed -e '/./{G;}' -e '/^$/d' | 
+        sed '/^#\{1,\}[[:space:]]*Meta/,$d'
+    } > "temp_$2.md"  
+}
+
 # makePDF
 function mdToPDF()
 {
@@ -12,13 +23,7 @@ function mdToPDF()
         # Check if the file has a '.md' extension
         if [[ $file == *.md ]]; then
             base=$(basename "$file" .md)
-
-            # Process the file
-            {
-                echo "# $base"
-                sed -e '/./{G;}' -e '/^$/d' "$file" | sed '/^#\{1,\}[[:space:]]*Meta/,$d'
-            } > "temp_$base.md"
-
+            _preprocessMD "$file" "$base"
             # Run Pandoc to convert the processed file to PDF
             pandoc --pdf-engine=xelatex -o "pdfs/$base.pdf" "temp_$base.md" \
               ~/.pandoc/preamble.yaml
@@ -39,13 +44,7 @@ function mdToHTML()
         # Check if the file has a '.md' extension
         if [[ $file == *.md ]]; then
             base=$(basename "$file" .md)
-
-            # Convert Markdown to HTML fragment (without header/footer)
-            {
-              echo "# $base"
-              sed -e '/./{G;}' -e '/^$/d' "$file" | sed '/^#\{1,\}[[:space:]]*Meta/,$d'
-            } > "temp_$base.md"
-
+            _preprocessMD "$file" "$base"
             pandoc "temp_$base.md" -t html -o "temp_$base.html"
 
             # Prepare the final HTML file path
@@ -74,12 +73,7 @@ function mdToWord()
         # Check if the file has a '.md' extension
         if [[ $file == *.md ]]; then
             base=$(basename "$file" .md)
-
-            # Process the Markdown file
-            {
-                echo "# $base"
-                sed -e '/./{G;}' -e '/^$/d' "$file" | sed '/^#\{1,\}[[:space:]]*Meta/,$d'
-            } > "temp_$base.md"
+            _preprocessMD "$file" "$base"
 
             # Convert to Word format using Pandoc
             pandoc "temp_$base.md" --reference-doc="$(echo ~/.pandoc/word-settings.docx)" -o "word/$base.docx"
