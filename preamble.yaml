@@ -1,9 +1,9 @@
 ---
 documentclass: extarticle
 fontsize: 14pt
-linestretch: 1.15
+linestretch: 1.2
 lang: ru
-mainfont: Noto Serif
+mainfont: PT Serif
 indent: true
 wrap: preserve
 header-includes:
