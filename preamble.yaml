@@ -3,7 +3,7 @@ documentclass: extarticle
 fontsize: 14pt
 linestretch: 1.2
 lang: ru
-mainfont: PT Serif
+mainfont: IBM Plex Serif
 indent: true
 wrap: preserve
 colorlinks: true

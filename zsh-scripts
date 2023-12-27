@@ -1,3 +1,4 @@
+#!/bin/zsh
 # custom zsh functions to generate PDF, HTML and Docx
 # add "source ~/.pandoc/zsh-scripts" to your .zshrc
 

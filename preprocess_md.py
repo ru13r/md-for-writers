@@ -9,8 +9,10 @@ def preprocess_md(input_file, base_name):
     # Remove the YAML header
     content = re.sub(r'^---[\s\S]*?---\s*', '', content)
 
-    # Remove [!Meta] blocks and their contents
-    content = re.sub(r'^>\[!Meta\][\s\S]*?\n\n', '', content, flags=re.MULTILINE)
+    # Remove [!Meta] and [!See also] blocks and their contents
+    content = re.sub(r'^>\s*\[!Meta\][\s\S]*?\n\n', '', content, flags=re.MULTILINE)
+    content = re.sub(r'^>\s*\[!See also\][\s\S]*?\n\n', '', content, flags=re.MULTILINE)
+
 
     content = re.sub(r'^\w+::\s*', '', content, flags=re.MULTILINE)
     
