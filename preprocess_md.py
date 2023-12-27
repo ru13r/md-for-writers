@@ -2,7 +2,7 @@
 import sys
 import re
 
-def preprocess_md(input_file, base_name):
+def preprocess_md(input_file, base_name, no_title=False):
     with open(input_file, 'r') as file:
         content = file.read()
 
@@ -12,7 +12,6 @@ def preprocess_md(input_file, base_name):
     # Remove [!Meta] and [!See also] blocks and their contents
     content = re.sub(r'^>\s*\[!Meta\][\s\S]*?\n\n', '', content, flags=re.MULTILINE)
     content = re.sub(r'^>\s*\[!See also\][\s\S]*?\n\n', '', content, flags=re.MULTILINE)
-
 
     content = re.sub(r'^\w+::\s*', '', content, flags=re.MULTILINE)
     
@@ -26,15 +25,22 @@ def preprocess_md(input_file, base_name):
     # Process other custom blocks
     content = re.sub(r'>\[!([a-zA-Z]+)\]\n([\s\S]*?)\n\n', lambda m: f"\n::: meta\n{m.group(2)}\n:::\n\n", content)
 
-
-    # Additional processing
-    processed_content = f"# {base_name}\n{content}"
+    # Add the title line only if the --no-title argument is not present
+    if not no_title:
+        processed_content = f"# {base_name}\n{content}"
+    else:
+        processed_content = content
 
     # Write to a temporary file
     with open(f"temp_{base_name}.md", 'w') as outfile:
         outfile.write(processed_content)
 
 if __name__ == "__main__":
-    input_md = sys.argv[1]
-    base_md = sys.argv[2]
-    preprocess_md(input_md, base_md)
+    # Check if --no-title is the first argument
+    no_title = len(sys.argv) > 3 and sys.argv[1] == "--no-title"
+
+    # Adjust indices based on whether --no-title was passed
+    input_md = sys.argv[2 if no_title else 1]
+    base_md = sys.argv[3 if no_title else 2]
+
+    preprocess_md(input_md, base_md, no_title)

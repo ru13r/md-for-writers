@@ -6,6 +6,17 @@
 # makePDF
 function mdToPDF()
 {
+    # Flag to indicate whether --no-title is set
+    local no_title_option=""
+
+    # Check for --no-title in the arguments
+    for arg in "$@"; do
+        if [[ "$arg" == "--no-title" ]]; then
+            no_title_option="--no-title"
+            break
+        fi
+    done
+
     # Create the 'pdfs' folder if it does not exist
     mkdir -p pdfs
 
@@ -14,7 +25,7 @@ function mdToPDF()
         # Check if the file has a '.md' extension
         if [[ $file == *.md ]]; then
             base=$(basename "$file" .md)
-            python3 ~/.pandoc/preprocess_md.py "$file" "$base"
+            python3 ~/.pandoc/preprocess_md.py $no_title_option "$file" "$base"
             # Run Pandoc to convert the processed file to PDF
             pandoc --lua-filter ~/.pandoc/fenced_block.lua --pdf-engine=xelatex -o "pdfs/$base.pdf" "temp_$base.md" \
               ~/.pandoc/preamble.yaml
@@ -27,6 +38,17 @@ function mdToPDF()
 
 function mdToHTML()
 {
+    # Flag to indicate whether --no-title is set
+    local no_title_option=""
+
+    # Check for --no-title in the arguments
+    for arg in "$@"; do
+        if [[ "$arg" == "--no-title" ]]; then
+            no_title_option="--no-title"
+            break
+        fi
+    done
+
     # Create the 'html' folder if it does not exist
     mkdir -p html
 
@@ -35,7 +57,7 @@ function mdToHTML()
         # Check if the file has a '.md' extension
         if [[ $file == *.md ]]; then
             base=$(basename "$file" .md)
-            python3 ~/.pandoc/preprocess_md.py "$file" "$base"
+            python3 ~/.pandoc/preprocess_md.py $no_title_option "$file" "$base"
             pandoc "temp_$base.md" -t html -o "temp_$base.html"
 
             # Prepare the final HTML file path
@@ -56,6 +78,17 @@ function mdToHTML()
 
 function mdToWord()
 {
+    # Flag to indicate whether --no-title is set
+    local no_title_option=""
+
+    # Check for --no-title in the arguments
+    for arg in "$@"; do
+        if [[ "$arg" == "--no-title" ]]; then
+            no_title_option="--no-title"
+            break
+        fi
+    done
+
     # Create the 'word' folder if it does not exist
     mkdir -p word
 
@@ -64,7 +97,7 @@ function mdToWord()
         # Check if the file has a '.md' extension
         if [[ $file == *.md ]]; then
             base=$(basename "$file" .md)
-            python3 ~/.pandoc/preprocess_md.py "$file" "$base"
+            python3 ~/.pandoc/preprocess_md.py $no_title_option "$file" "$base"
 
             # Convert to Word format using Pandoc
             pandoc "temp_$base.md" --reference-doc="$(echo ~/.pandoc/word-settings.docx)" -o "word/$base.docx"

@@ -72,6 +72,12 @@ mdToPDF *.md
 ```
 This command will convert all `.md` files in the current directory to PDF format and save them in the "pdfs" folder.
 
+### `--no-title` option
+By default the name of the processed file is added to the output file as the first level header. To supress this behaviour use `--no-title` option: 
+```zsh
+mdToPDF --no-title your_file.md
+```
+
 ### Meta section
 You may use "Meta" section at the end of your file for notes, comments or sources. It will be ignored when generating the output.
 ```md
