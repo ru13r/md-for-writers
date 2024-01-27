@@ -35,6 +35,8 @@ tlmgr install collection-langcyrillic
 tlmgr install latex-tools
 tlmgr install environ
 tlmgr install tcolorbox
+tlmgr install tikzfill
+tlmgr install pdfcol
 ```
 
 Note: Run these commands with `sudo` if you encounter permission issues.

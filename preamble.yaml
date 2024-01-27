@@ -11,11 +11,12 @@ header-includes:
   - \usepackage[utf8]{inputenc}
   - \usepackage{indentfirst}
   - \usepackage[a4paper, margin=2.5cm]{geometry}
-  - \usepackage{tcolorbox}
+  - \usepackage[most]{tcolorbox}
   - |
     \newtcolorbox{metabox}{
     colback=gray!5,
     colframe=gray!15,
+    breakable
     }
   - \newenvironment{meta}{\begin{metabox}}{\end{metabox}}
 ---

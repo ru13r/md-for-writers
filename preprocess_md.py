@@ -2,6 +2,14 @@
 import sys
 import re
 
+def generate_meta(m):
+    group2 = m.group(2).strip()
+    if group2:
+        return f"\n::: meta\n{m.group(3)}\n\n> > *{group2}*\n:::\n\n"
+    else:
+        return f"\n::: meta\n{m.group(3)}\n:::\n\n"
+
+
 def preprocess_md(input_file, base_name, no_title=False):
     with open(input_file, 'r') as file:
         content = file.read()
@@ -23,7 +31,7 @@ def preprocess_md(input_file, base_name, no_title=False):
     content = re.sub(r'\[\[([^\]]+)\]\]', r'\1', content)
 
     # Process other custom blocks
-    content = re.sub(r'>\[!([a-zA-Z]+)\]\n([\s\S]*?)\n\n', lambda m: f"\n::: meta\n{m.group(2)}\n:::\n\n", content)
+    content = re.sub(r'>\s*\[!([a-zA-Z]+)\]([\s\S]*?)\n([\s\S]*?)\n\n', generate_meta, content)
 
     # Add the title line only if the --no-title argument is not present
     if not no_title:
