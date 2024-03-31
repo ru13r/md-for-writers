@@ -51,7 +51,7 @@ cd ~
 mkdir .pandoc
 cd .pandoc
 git clone https://github.com/ru13r/md-for-writers.git .
-echo "source ~/.pandoc/zsh-scripts" >> ~/.zshrc
+echo "source ~/.pandoc/zsh-scripts" > ~/.zshrc
 ```
 
 Для активации изменений перезапустите терминал или выполните команду:
