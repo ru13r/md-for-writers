@@ -3,6 +3,7 @@ documentclass: extarticle
 fontsize: 14pt
 linestretch: 1.2
 lang: ru
+## PT Serif, Roboto Serif, Noto Serif
 mainfont: Georgia
 indent: true
 wrap: preserve
