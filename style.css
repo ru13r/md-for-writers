@@ -1,0 +1,90 @@
+@import url('https://fonts.googleapis.com/css2?family=PT+Serif&display=swap');
+html {
+   background-color: rgb(243, 237, 232); 
+}
+
+body { 
+  font-family: "PT Serif", serif;
+  font-size: 20px;
+  letter-spacing: -.01em;
+  background-color: rgb(243, 237, 232); 
+  line-height: 1.4em; 
+  color: rgb(51, 51, 51); 
+  text-rendering: optimizelegibility; 
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  margin: 0 auto; 
+  padding: 1.2em;
+  width: 100%;
+  max-width: 52ch
+  }
+
+.meta {
+  padding: 1em;
+  background-color: rgb(231, 225, 220);
+}
+
+h1, h2, h3, h4, h5, h6 { 
+  font-family: "PT Serif", serif; 
+  font-weight: 400; 
+  text-align: center;
+}
+
+h1, h2, h3 {
+  page-break-after: avoid;
+  line-height: 1.3em;
+}
+
+h2, h3 {
+  page-break-before: always;
+}
+
+h4, h5, h6 {
+  page-break-before: avoid;
+  page-break-after: avoid;
+}
+
+p {
+    page-break-before: avoid;
+    page-break-inside: avoid;
+    page-break-after: auto;
+    margin-top: 0;
+    margin-bottom: 0;
+    line-height: 1.4em;
+    text-indent: 1.5em;
+    text-align: justify;
+    hyphens: auto;
+}
+
+li > p {
+  text-indent: 0em;
+}
+
+.meta > p {
+  text-indent: 0em;
+}
+
+
+h1 { font-size: 1.875em; }
+h2 { font-size: 1.45em; }
+h3 { font-size: 1.25em; }
+h4, h5, h6 { font-size: 1em;}
+
+i {
+  font-style: italic!important;
+}
+
+img {
+  width: 95%;
+}
+
+sup {
+  font-size: smaller;
+  line-height: 0;
+  vertical-align: super;
+}
+
+a {
+  text-decoration: none;
+  color: rgb(181, 125, 120);
+}

@@ -58,7 +58,7 @@ function mdToHTML()
         if [[ $file == *.md ]]; then
             base=$(basename "$file" .md)
             python3 ~/.pandoc/preprocess_md.py $no_title_option "$file" "$base"
-            pandoc "temp_$base.md" -t html -o "temp_$base.html"
+            pandoc --embed-resources --standalone --css ~/.pandoc/style.css "temp_$base.md" -t html -o "temp_$base.html"
 
             # Prepare the final HTML file path
             final_html="html/$base.html"
