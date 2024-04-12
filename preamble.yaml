@@ -13,11 +13,18 @@ header-includes:
   - \usepackage{indentfirst}
   - \usepackage[a4paper, margin=2.5cm]{geometry}
   - \usepackage[most]{tcolorbox}
+  - \usepackage{caption}
   - |
     \newtcolorbox{metabox}{
     colback=gray!5,
     colframe=gray!15,
     breakable
+    }
+  - |
+    \captionsetup[figure]{
+    name=,
+    labelsep=none,
+    labelformat=empty
     }
   - \newenvironment{meta}{\begin{metabox}}{\end{metabox}}
 ---
