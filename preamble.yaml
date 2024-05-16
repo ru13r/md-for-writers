@@ -3,8 +3,8 @@ documentclass: extarticle
 fontsize: 14pt
 linestretch: 1.2
 lang: ru
-## Georgia, Roboto Serif, Noto Serif
-mainfont: PT Serif
+## Georgia, PT Serif, Roboto Serif, Noto Serif
+mainfont: Georgia
 indent: true
 wrap: preserve
 colorlinks: true
@@ -27,12 +27,12 @@ header-includes:
     labelformat=empty
     }
   - \newenvironment{meta}{\begin{metabox}}{\end{metabox}}
-# title: [Title]
-# author: [Author]
-# toc: true
-# toc-depth: 2
-# titlepage: true
-# include-before:
-# - '`\newpage{}`{=latex}'
+#title: Insert title here
+#author: Insert author here
+#toc: true
+#toc-depth: 2
+#titlepage: true
+#include-before:
+#- '`\newpage{}`{=latex}'
 ---
 

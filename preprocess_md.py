@@ -5,7 +5,7 @@ import re
 def generate_meta(m):
     group2 = m.group(2).strip()
     if group2:
-        return f"\n::: meta\n{m.group(3)}\n\n> > *{group2}*\n:::\n\n"
+        return f"\n::: meta\n{m.group(3)}\n\n> *{group2}*\n:::\n\n"
     else:
         return f"\n::: meta\n{m.group(3)}\n:::\n\n"
 
@@ -22,9 +22,6 @@ def preprocess_md(input_file, base_name, no_title=False):
     content = re.sub(r'^>\s*\[!See also\][\s\S]*?\n\n', '', content, flags=re.MULTILINE)
 
     content = re.sub(r'^\w+::\s*', '', content, flags=re.MULTILINE)
-    
-    # make extra newlines
-    content = content.replace('\n', '\n\n')
 
     # remove wikipedia style links
     content = re.sub(r'!\[\[([^\]]+)\]\]', '', content)
@@ -32,6 +29,9 @@ def preprocess_md(input_file, base_name, no_title=False):
 
     # Process other custom blocks
     content = re.sub(r'>\s*\[!([a-zA-Z]+)\]([\s\S]*?)\n([\s\S]*?)\n\n', generate_meta, content)
+
+    # make extra newlines
+    content = content.replace('\n', '\n\n')
 
     # Add the title line only if the --no-title argument is not present
     if not no_title:
