@@ -1,8 +1,8 @@
 ---
 documentclass: extarticle
-fontsize: 14pt
+fontsize: 12pt
 linestretch: 1.2
-lang: ru
+lang: ru_RU
 ## Georgia, PT Serif, Roboto Serif, Noto Serif
 mainfont: Georgia
 indent: true
@@ -14,19 +14,11 @@ header-includes:
   - \usepackage[a4paper, margin=2.5cm]{geometry}
   - \usepackage[most]{tcolorbox}
   - \usepackage{caption}
-  - |
-    \newtcolorbox{metabox}{
-    colback=gray!5,
-    colframe=gray!15,
-    breakable
-    }
-  - |
-    \captionsetup[figure]{
-    name=,
-    labelsep=none,
-    labelformat=empty
-    }
+  - \newtcolorbox{metabox}{colback=gray!5,colframe=gray!15,breakable}
+  - \captionsetup[figure]{name=,labelsep=none,labelformat=empty}
   - \newenvironment{meta}{\begin{metabox}}{\end{metabox}}
+  - \newtcolorbox{myquote}{colback=gray!5, colframe=gray!15, breakable}
+  - \renewenvironment{quote}{\begin{myquote}}{\end{myquote}}
 #title: Insert title here
 #author: Insert author here
 #toc: true
